@@ -1,19 +1,40 @@
 {
-  "name": "nft-casino",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.0.10",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "eslint": "8.8.0",
-    "eslint-config-next": "12.0.10"
-  }
+    "name": "nft-casino",
+    "homepage": "https://github.com/nedaras/nft-casino",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nedaras/nft-casino.git"
+    },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "prettier --write . && eslint . --ext .js,.ts --fix",
+        "compile": "hardhat compile --force && hardhat run scripts/sample-script.js --network localhost"
+    },
+    "dependencies": {
+        "@nomiclabs/hardhat-ethers": "^2.0.4",
+        "@nomiclabs/hardhat-waffle": "^2.0.2",
+        "@openzeppelin/contracts": "^4.4.2",
+        "chai": "^4.3.6",
+        "ethereum-waffle": "^3.4.0",
+        "ethers": "^5.5.4",
+        "hardhat": "^2.8.3",
+        "next": "12.0.10",
+        "react": "17.0.2",
+        "react-dom": "17.0.2"
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.14",
+        "@types/react": "^17.0.38",
+        "@typescript-eslint/eslint-plugin": "^5.10.2",
+        "@typescript-eslint/parser": "^5.10.2",
+        "eslint": "8.8.0",
+        "eslint-config-next": "12.0.10",
+        "eslint-config-prettier": "^8.3.0",
+        "prettier": "^2.5.1",
+        "sass": "^1.49.7",
+        "tslib": "^2.3.1",
+        "typescript": "^4.5.5"
+    }
 }

@@ -10,7 +10,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "prettier --write . && eslint . --ext .js,.ts --fix",
-        "compile": "hardhat compile --force && hardhat run scripts/sample-script.js --network localhost"
+        "serve": "hardhat node",
+        "deploy": "hardhat compile --force && hardhat run scripts/deploy.js --network localhost"
     },
     "dependencies": {
         "@nomiclabs/hardhat-ethers": "^2.0.4",

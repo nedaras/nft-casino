@@ -13,6 +13,7 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 0,
         '@typescript-eslint/no-non-null-assertion': 0,
         'prefer-const': 1,
+        'array-bracket-spacing': [1, 'always'],
     },
     ignorePatterns: ['**/*.js'],
 }

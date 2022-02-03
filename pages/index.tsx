@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react'
 import Greeter from '../artifacts/contracts/Roulette.sol/Roulette.json'
 
 const Home: NextPage = () => {
-    const [greeting, setGreetingValue] = useState('')
-    const [balance, setBalance] = useState('')
-    const [number, setNumber] = useState('')
+    const [ greeting, setGreetingValue ] = useState('')
+    const [ balance, setBalance ] = useState('')
+    const [ number, setNumber ] = useState('')
 
     useEffect(() => {
         getBalance()
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
     async function getBalance() {
         if (process.browser && typeof window.ethereum !== 'undefined') {
-            const [account]: [string] = await window.ethereum.request({
+            const [ account ]: [string] = await window.ethereum.request({
                 method: 'eth_requestAccounts',
             })
             const provider = new Web3Provider(window.ethereum)

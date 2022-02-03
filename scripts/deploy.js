@@ -1,9 +1,8 @@
 const hre = require('hardhat')
 
 async function main() {
-
-    const Greeter = await hre.ethers.getContractFactory('Greeter')
-    const greeter = await Greeter.deploy('Hello Hardhat!')
+    const Greeter = await hre.ethers.getContractFactory('Roulette')
+    const greeter = await Greeter.deploy()
 
     await greeter.deployed()
 

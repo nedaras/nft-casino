@@ -1,62 +1,38 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
-import { formatEther } from 'ethers/lib/utils'
+import { formatEther, parseEther } from 'ethers/lib/utils'
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
-import Greeter from '../artifacts/contracts/Greeter.sol/Greeter.json'
+import Greeter from '../artifacts/contracts/Roulette.sol/Roulette.json'
 
 const Home: NextPage = () => {
+    const [greeting, setGreetingValue] = useState('')
+    const [balance, setBalance] = useState('')
+    const [number, setNumber] = useState('')
 
-    const [ greeting, setGreetingValue ] = useState('')
-    const [ balance, setBalance ] = useState('')
-
-    useEffect(() => { getBalance() }, [])
+    useEffect(() => {
+        getBalance()
+    }, [])
 
     async function getBalance() {
-
         if (process.browser && typeof window.ethereum !== 'undefined') {
-            const [ account ]: [ string ] = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            const [account]: [string] = await window.ethereum.request({
+                method: 'eth_requestAccounts',
+            })
             const provider = new Web3Provider(window.ethereum)
             const balance = await provider.getBalance(account)
 
             setBalance(formatEther(balance))
-
         }
-
     }
 
     async function requestAccount() {
-        
         if (process.browser && typeof window.ethereum !== 'undefined') {
             await window.ethereum.request({ method: 'eth_requestAccounts' })
-
         }
-
-    }
-
-    async function fetchGreeting() {
-
-        if (process.browser && typeof window.ethereum !== 'undefined') {
-            const provider = new Web3Provider(window.ethereum)
-            const contract = new Contract(process.env.NEXT_PUBLIC_CONTRACT!, Greeter.abi, provider)
-
-            try {
-
-                const data = await contract.greet()
-                console.log(`data: ${data}`)
-                
-
-            } catch(error) {
-                console.error(error)
-
-            }
-
-        }
-
     }
 
     async function setGreeting() {
-
         if (process.browser && greeting && typeof window.ethereum !== 'undefined') {
             await requestAccount()
 
@@ -64,29 +40,31 @@ const Home: NextPage = () => {
             const signer = provider.getSigner()
 
             const contract = new Contract(process.env.NEXT_PUBLIC_CONTRACT!, Greeter.abi, signer)
-            const transaction = await contract.setGreeting(greeting)
+            const transaction = await contract.spin(+number, { value: parseEther(greeting) })
             setGreetingValue('')
+            setNumber('')
             await transaction.wait()
-            fetchGreeting()
-            
+            getBalance()
         }
-
     }
 
-    return <div>
-        <button onClick={fetchGreeting} >Fetch Greeting</button>
-        <button onClick={setGreeting} >Set Greeting</button>
-
-        <input
-            onChange={(e) => setGreetingValue(e.target.value)}
-            placeholder='Set greeting'
-            value={greeting}
-        />
-
-        <button onClick={getBalance} >Update Balance</button>
-        Your balance { balance }
-
-    </div>
+    return (
+        <div>
+            <button onClick={setGreeting}>Gamble</button>
+            <input
+                onChange={(e) => setGreetingValue(e.target.value)}
+                placeholder="Eth to gamble"
+                value={greeting}
+            />
+            <input
+                onChange={(e) => setNumber(e.target.value)}
+                placeholder="Lucky number"
+                value={number}
+            />
+            <button onClick={getBalance}>Update Balance</button>
+            Your balance {balance}
+        </div>
+    )
 }
 
 export default Home

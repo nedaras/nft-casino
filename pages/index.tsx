@@ -1,8 +1,7 @@
 import { Contract, providers } from 'ethers'
-import { formatEther, formatUnits, parseEther } from 'ethers/lib/utils'
 import { NextPage } from 'next'
 import { useState } from 'react'
-import Greeter from '../artifacts/contracts/Fund.sol/Fund.json'
+import Greeter from '../artifacts/contracts/Lottery.sol/Lottery.json'
 
 const Home: NextPage = () => {
     const [ adress, setAdress ] = useState('')
@@ -19,12 +18,16 @@ const Home: NextPage = () => {
 
         const contract = new Contract(adress, Greeter.abi, signer)
 
+        //await contract.startLottery()
+        //await contract.enter({ value: parseEther('0.08') })
+        //await contract.endLottery()
+
         //const transection = await contract.fund({ value: parseEther('0.005') })
         //await transection.wait()
 
         //await contract.fund({ value: parseEther('0.05') })
         //await contract.withdraw()
-        const price = await contract.fund({ value: parseEther('0.01') })
+        //const price = await contract.fund({ value: parseEther('0.01') })
 
         //console.log(formatUnits(price))
     }

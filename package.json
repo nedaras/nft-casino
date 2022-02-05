@@ -11,7 +11,8 @@
         "start": "next start",
         "lint": "prettier --write . && eslint . --ext .tsx,.ts --fix",
         "serve": "hardhat node",
-        "deploy": "hardhat compile && hardhat run scripts/deploy.js --network"
+        "deploy": "hardhat compile && hardhat run scripts/deploy.js --network",
+        "test": "hardhat compile && hardhat test --network" 
     },
     "dependencies": {
         "@chainlink/contracts": "^0.3.1",

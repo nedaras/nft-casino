@@ -1,11 +1,10 @@
 const hre = require('hardhat')
 
 async function main() {
-    const Greeter = await hre.ethers.getContractFactory('Roulette')
+    const Greeter = await hre.ethers.getContractFactory('Fund')
     const greeter = await Greeter.deploy()
 
     await greeter.deployed()
-
     console.log('Greeter deployed to:', greeter.address)
 }
 

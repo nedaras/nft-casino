@@ -1,7 +1,8 @@
 import { Contract, providers } from 'ethers'
+import { formatEther, formatUnits, parseEther } from 'ethers/lib/utils'
 import { NextPage } from 'next'
 import { useState } from 'react'
-import Greeter from '../artifacts/contracts/Lottery.sol/Lottery.json'
+import Greeter from '../artifacts/contracts/CoinFlip.sol/CoinFlip.json'
 
 const Home: NextPage = () => {
     const [ adress, setAdress ] = useState('')
@@ -18,18 +19,24 @@ const Home: NextPage = () => {
 
         const contract = new Contract(adress, Greeter.abi, signer)
 
-        //await contract.startLottery()
-        //await contract.enter({ value: parseEther('0.08') })
-        //await contract.endLottery()
+        contract.cancel()
 
-        //const transection = await contract.fund({ value: parseEther('0.005') })
-        //await transection.wait()
+        //const transection = await contract.createGame(false, { value: parseEther('9000') })
+        // const res = await transection.wait()
 
-        //await contract.fund({ value: parseEther('0.05') })
-        //await contract.withdraw()
-        //const price = await contract.fund({ value: parseEther('0.01') })
+        // console.log(res)
 
-        //console.log(formatUnits(price))
+        const winner = await contract.enterGame(4, { value: parseEther('9000') })
+        // console.log(winner)
+
+        //console.log(await contract.players(0))
+
+        // const [ player, bet, side ] = await contract.players(1);
+
+        // console.log(player)
+        // console.log(formatEther(bet))
+        // console.log(side == 0 ? 'Tails' : 'Head')
+
     }
 
     return (

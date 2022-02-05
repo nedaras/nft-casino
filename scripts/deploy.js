@@ -1,7 +1,7 @@
 const { ethers } = require('hardhat')
 
 async function main() {
-    const Greeter = await ethers.getContractFactory('Lottery')
+    const Greeter = await ethers.getContractFactory('CoinFlip')
     const greeter = await Greeter.deploy()
 
     await greeter.deployed()

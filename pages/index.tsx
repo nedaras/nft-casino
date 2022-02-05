@@ -1,5 +1,5 @@
 import { Contract, providers } from 'ethers'
-import { formatUnits } from 'ethers/lib/utils'
+import { formatEther, formatUnits, parseEther } from 'ethers/lib/utils'
 import { NextPage } from 'next'
 import { useState } from 'react'
 import Greeter from '../artifacts/contracts/Fund.sol/Fund.json'
@@ -24,9 +24,9 @@ const Home: NextPage = () => {
 
         //await contract.fund({ value: parseEther('0.05') })
         //await contract.withdraw()
-        const price = await contract.getPrice()
+        const price = await contract.fund({ value: parseEther('0.01') })
 
-        console.log(formatUnits(price))
+        //console.log(formatUnits(price))
 
     }
 

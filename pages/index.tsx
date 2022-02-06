@@ -1,5 +1,4 @@
-import { Contract, providers } from 'ethers'
-import { formatEther, formatUnits, parseEther } from 'ethers/lib/utils'
+import { Contract, providers, utils } from 'ethers'
 import { NextPage } from 'next'
 import { useState } from 'react'
 import Greeter from '../artifacts/contracts/CoinFlip.sol/CoinFlip.json'
@@ -10,7 +9,7 @@ const Home: NextPage = () => {
     async function interact() {
         if (!process.browser || typeof (window as any).ethereum === 'undefined') return
 
-        const [ account ]: [string] = await (window as any).ethereum.request({
+        await (window as any).ethereum.request({
             method: 'eth_requestAccounts',
         })
 
@@ -19,24 +18,26 @@ const Home: NextPage = () => {
 
         const contract = new Contract(adress, Greeter.abi, signer)
 
-        contract.cancel()
+        //contract.cancel()
 
-        //const transection = await contract.createGame(false, { value: parseEther('9000') })
-        // const res = await transection.wait()
+        // await contract.createGame(false, { value: parseEther('0.01') })
 
-        // console.log(res)
-
-        const winner = await contract.enterGame(4, { value: parseEther('9000') })
-        // console.log(winner)
+        // await contract.enterGame(0, { value: parseEther('0.01') })
 
         //console.log(await contract.players(0))
 
-        // const [ player, bet, side ] = await contract.players(1);
+        // console.log(await contract.latestWinner())
+        // console.log(await contract.latestLosser())
+        // console.log(formatUnits(await contract.latestRandomNumber(), 0))
 
-        // console.log(player)
-        // console.log(formatEther(bet))
-        // console.log(side == 0 ? 'Tails' : 'Head')
+        const [ player, bet, side, status ] = await contract.players(0)
 
+        console.log(player)
+        console.log(utils.formatEther(bet))
+        console.log(side == 0 ? 'Tails' : 'Head')
+        if (status == 0) console.log('This game is Closed')
+        if (status == 1) console.log('Waiting for players')
+        if (status == 2) console.log('Getting winner')
     }
 
     return (
